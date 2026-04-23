@@ -35,6 +35,7 @@ class ProgressDataSource {
   }
 
   static Future<void> init() async {
+    await Hive.initFlutter();
     await Hive.openBox<dynamic>(_boxName);
   }
 }
