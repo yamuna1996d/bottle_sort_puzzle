@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <base href="$FLUTTER_BASE_HREF">
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="Bottle Sort – Water Color Puzzle Game. Offline, optimized, clean architecture.">
+  <meta name="theme-color" content="#0d1b2a">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Bottle Sort">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png"/>
+
+  <title>Bottle Sort Puzzle</title>
+  <link rel="manifest" href="manifest.json">
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background-color: #0d1b2a;
+      height: 100%;
+    }
+
+    #flutter-loading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-color: #0d1b2a;
+      font-family: sans-serif;
+      color: #ffffff;
+    }
+
+    #flutter-loading .drop {
+      font-size: 64px;
+      margin-bottom: 16px;
+      animation: pulse 1.5s ease-in-out infinite;
+      will-change: transform, opacity;
+    }
+
+    #flutter-loading h1 {
+      font-size: 28px;
+      font-weight: 700;
+      margin: 0 0 8px;
+      letter-spacing: 1px;
+    }
+
+    #flutter-loading p {
+      font-size: 14px;
+      color: #7ecac3;
+      margin: 0;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.1); opacity: 0.8; }
+    }
+  </style>
+</head>
+<body>
+  <div id="flutter-loading">
+    <div class="drop">💧</div>
+    <h1>Bottle Sort</h1>
+    <p>Water Color Puzzle</p>
+  </div>
+
+  <script>
+    window.addEventListener('flutter-first-frame', function () {
+      var loading = document.getElementById('flutter-loading');
+      if (loading) loading.style.display = 'none';
+    });
+  </script>
+  <script src="flutter_bootstrap.js" async></script>
+</body>
+</html>
