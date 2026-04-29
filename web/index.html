@@ -79,6 +79,17 @@
       var loading = document.getElementById('flutter-loading');
       if (loading) loading.style.display = 'none';
     });
+
+    // If Flutter never fires flutter-first-frame within 15 s, show a retry link.
+    setTimeout(function () {
+      var loading = document.getElementById('flutter-loading');
+      if (loading && loading.style.display !== 'none') {
+        loading.innerHTML =
+          '<div class="drop">⚠️</div>' +
+          '<h1>Failed to Load</h1>' +
+          '<p><a href="/" style="color:#7ecac3;text-decoration:underline">Tap to retry</a></p>';
+      }
+    }, 15000);
   </script>
   <script src="flutter_bootstrap.js" async></script>
 </body>

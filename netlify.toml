@@ -1,21 +1,9 @@
 [build]
   publish = "build/web"
 
-# Cross-origin isolation headers required for skwasm (multi-threaded WASM renderer)
-[[headers]]
-  for = "/*"
-  [headers.values]
-    Cross-Origin-Opener-Policy = "same-origin"
-    Cross-Origin-Embedder-Policy = "require-corp"
-
-# Long-lived cache for hashed/versioned assets (JS, WASM, fonts)
+# Long-lived cache for hashed/versioned assets (JS, fonts)
 [[headers]]
   for = "/*.js"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-
-[[headers]]
-  for = "/*.mjs"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
@@ -34,7 +22,6 @@
   for = "/canvaskit/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
-    Cross-Origin-Resource-Policy = "cross-origin"
 
 # Service worker and HTML must always revalidate
 [[headers]]

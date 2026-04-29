@@ -1,3 +1,6 @@
+import java.util.Properties
+import java.io.FileInputStream
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
@@ -20,21 +23,43 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId = "com.bottlesort.bottle_sort_puzzle"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
     }
 
+    signingConfigs {
+        create("release") {
+            val propFile = file("SIGNING_CONFIG.properties")
+            if (propFile.canRead()) {
+                val props = Properties().apply { load(FileInputStream(propFile)) }
+                if (props.containsKey("STORE_FILE") && props.containsKey("KEY_STORE_PASSWORD")
+                    && props.containsKey("KEY_ALIAS") && props.containsKey("KEY_PASSWORD")) {
+                    storeFile = file(props["STORE_FILE"] as String)
+                    storePassword = props["KEY_STORE_PASSWORD"] as String
+                    keyAlias = props["KEY_ALIAS"] as String
+                    keyPassword = props["KEY_PASSWORD"] as String
+                } else {
+                    println("SIGNING_CONFIG.properties found but some entries are missing")
+                }
+            } else {
+                println("SIGNING_CONFIG.properties not found")
+            }
+        }
+    }
+
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig = signingConfigs.getByName("debug")
+            val propFile = file("SIGNING_CONFIG.properties")
+            signingConfig = if (propFile.canRead()) {
+                signingConfigs.getByName("release")
+            } else {
+                signingConfigs.getByName("debug")
+            }
+            isMinifyEnabled = true
+            proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
         }
     }
 }
